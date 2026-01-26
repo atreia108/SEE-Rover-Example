@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<objectModel
+        xmlns="http://standards.ieee.org/IEEE1516-2010"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://standards.ieee.org/IEEE1516-2010 IEEE1516-DIF-2010.xsd"
+>
+    <modelIdentification>
+        <name>Lunar Rover FOM</name>
+        <type>FOM</type>
+        <version>1.0</version>
+        <securityClassification>unclassified</securityClassification>
+        <purpose></purpose>
+        <applicationDomain></applicationDomain>
+        <description>Adds a simple interaction class to showcase how sending interaction classes works in the SEE HLA Starter Kit.</description>
+        <useLimitation></useLimitation>
+        <other></other>
+    </modelIdentification>
+    <interactions>
+        <interactionClass>
+            <name>HLAinteractionRoot</name>
+            <interactionClass>
+                <name>VehicleStatusTransmission</name>
+                <sharing>PublishSubscribe</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>Receive</order>
+                <semantics>General communication between federates</semantics>
+                <parameter>
+                    <name>VehicleName</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <semantics>Name of the vehicle transmitting its status.</semantics>
+                </parameter>
+                <parameter>
+                    <name>Position</name>
+                    <dataType>PositionVector</dataType>
+                    <semantics>Coordinates of the vehicle.</semantics>
+                </parameter>
+            </interactionClass>
+        </interactionClass>
+    </interactions>
+    <dataTypes>
+        <simpleDataTypes/>
+        <enumeratedDataTypes/>
+        <arrayDataTypes/>
+        <fixedRecordDataTypes/>
+        <variantRecordDataTypes/>
+    </dataTypes>
+    <notes/>
+</objectModel>

@@ -15,18 +15,19 @@ public class ReferenceFrameListener implements RemoteObjectInstanceListener {
         if (instanceName.equals(REFERENCE_FRAME_NAME) && objectInstance instanceof ReferenceFrame) {
             ReferenceFrame referenceFrame = (ReferenceFrame) objectInstance;
 
-            referenceFrame.addListener(evt -> {
+            referenceFrame.addPropertyListener(evt -> {
                 if (evt.getPropertyName().equals("state")) {
                     String positionInfo = referenceFrame.getState().getPosition().toString();
                     logger.info("Position of \"{}\" was updated to: {}", REFERENCE_FRAME_NAME, positionInfo);
 
-                    // Other operations you may want to do in response to the event.
+                    // Other operations you may want to do in response to this event.
                     // ...
                 }
             });
         }
     }
 
+    // And this gets called when any remote entity is removed.
     @Override
     public void instanceRemoved(String instanceName) {
         if (instanceName.equals(REFERENCE_FRAME_NAME)) {

@@ -35,6 +35,7 @@ import org.apache.commons.geometry.euclidean.threed.Vector3D;
 import org.see.roverexample.listeners.ReferenceFrameListener;
 import org.see.roverexample.models.LunarRover;
 import org.see.roverexample.models.ReferenceFrame;
+import org.see.roverexample.models.VehicleStatusTransmission;
 import org.see.skf.conf.FederateConfiguration;
 import org.see.skf.core.SEEFederateAmbassador;
 import org.see.skf.core.SEELateJoinerFederate;
@@ -45,22 +46,25 @@ public class RoverFederate extends SEELateJoinerFederate {
     private static final File confFile = new File("src/main/resources/rover_federate.conf");
 
     private final LunarRover rover;
+    private int counter;
 
     public RoverFederate(SEEFederateAmbassador federateAmbassador, FederateConfiguration federateConfiguration) {
         super(federateAmbassador, federateConfiguration);
 
-        // Set up the rover's coordinates.
-        rover = new LunarRover();
-        Vector3D spawnPoint = Vector3D.of(100, 500, 800);
-        rover.getState().setPosition(spawnPoint);
-        rover.setParentReferenceFrame("AitkenBasinLocalFixed");
+        // Create a starting point for the rover.
+        Vector3D spawnPoint = Vector3D.of(100, 500, -5590);
+        rover = new LunarRover("lunar_rover", "Transport", "Deployed", "AitkenBasinLocalFixed", spawnPoint);
+
+        counter = 0;
     }
 
     @Override
-    public void declareClasses() throws FederateNotExecutionMember, AttributeNotDefined, ObjectClassNotDefined, RestoreInProgress, NameNotFound, NotConnected, RTIinternalError, InvalidObjectClassHandle, SaveInProgress {
+    public void declareClasses() throws FederateNotExecutionMember, AttributeNotDefined, ObjectClassNotDefined, RestoreInProgress, NameNotFound, NotConnected, RTIinternalError, InvalidObjectClassHandle, SaveInProgress, InvalidInteractionClassHandle, InteractionClassNotDefined {
         // We are publishing the PhysicalEntity class since we're creating the lunar rover. It is an object instance
-        // belonging to the PhysicalEntity object class.
+        // belonging to the PhysicalEntity object class. In a similar vein, we are also publishing the VehicleStatusTransmission
+        // interaction class because we want to be able to transmit the status of our rover every few steps.
         publishObjectClass(LunarRover.class);
+        publishInteractionClass(VehicleStatusTransmission.class);
 
         // We want to be notified of updates pertaining to the MoonCentricInertial reference frame. It has been
         // chosen arbitrarily just to demonstrate how updates are received.
@@ -72,8 +76,8 @@ public class RoverFederate extends SEELateJoinerFederate {
 
     @Override
     public void declareObjectInstances() throws FederateNotExecutionMember, ObjectClassNotPublished, ObjectClassNotDefined, RestoreInProgress, ObjectInstanceNotKnown, IllegalName, ObjectInstanceNameInUse, ObjectInstanceNameNotReserved, NotConnected, RTIinternalError, SaveInProgress {
-        // This creates an object instance at the RTI with the name "moon_buggy".
-        createObjectInstance(rover, "moon_buggy");
+        // This creates an object instance at the RTI with the name "lunar_rover".
+        registerObjectInstance(rover, "lunar_rover");
     }
 
     @Override
@@ -85,6 +89,23 @@ public class RoverFederate extends SEELateJoinerFederate {
         // The rover has only moved locally in our federate. We need to dispatch updates for it so that other federates
         // that are subscribed can learn about this.
         updateObjectInstance(rover);
+
+        // Every 11th step, send a transmission about the vehicle status and a message.
+        if (counter % 11 == 0) {
+            sendTransmission();
+            counter = 0;
+        } else {
+            ++counter;
+        }
+    }
+
+    private void sendTransmission() {
+        try {
+            VehicleStatusTransmission transmission = new VehicleStatusTransmission(rover.getName(), rover.getState().getPosition());
+            sendInteraction(transmission);
+        } catch (Exception e) {
+            throw new IllegalStateException("Error encountered while trying to transmit vehicle status.", e);
+        }
     }
 
     public static void main(String[] args) {

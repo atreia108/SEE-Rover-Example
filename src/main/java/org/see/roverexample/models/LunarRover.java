@@ -88,6 +88,16 @@ public class LunarRover {
         this.bodyWrtStructural = Quaternion.of(0, 0, 0, 0);
     }
 
+    public LunarRover(String name, String type, String status, String parentReferenceFrame, Vector3D spawnPoint) {
+        this();
+
+        this.name = name;
+        this.type = type;
+        this.status = status;
+        this.parentReferenceFrame = parentReferenceFrame;
+        this.state.setPosition(spawnPoint);
+    }
+
     public void move() {
         Vector3D currentPosition = state.getPosition();
         state.setPosition(currentPosition.add(POSITION_INCREMENT));
