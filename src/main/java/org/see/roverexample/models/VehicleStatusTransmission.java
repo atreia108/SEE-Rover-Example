@@ -14,11 +14,15 @@ public class VehicleStatusTransmission {
     @Parameter(name = "Position", coder = Vector3DCoder.class)
     private Vector3D position;
 
+    @Parameter(name = "Message", coder = HLAunicodeStringCoder.class)
+    private String message;
+
     public VehicleStatusTransmission() {}
 
-    public VehicleStatusTransmission(String vehicleName, Vector3D position) {
+    public VehicleStatusTransmission(String vehicleName, Vector3D position, String message) {
         this.vehicleName = vehicleName;
         this.position = position;
+        this.message = message;
     }
 
     public String getVehicleName() {
@@ -35,5 +39,13 @@ public class VehicleStatusTransmission {
 
     public void setPosition(Vector3D position) {
         this.position = position;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

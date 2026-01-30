@@ -90,18 +90,15 @@ public class RoverFederate extends SEELateJoinerFederate {
         // that are subscribed can learn about this.
         updateObjectInstance(rover);
 
-        // Every 11th step, send a transmission about the vehicle status and a message.
-        if (counter % 11 == 0) {
-            sendTransmission();
-            counter = 0;
-        } else {
-            ++counter;
-        }
+        // Send a transmission with the rover's current position and the number of time steps elapsed since mission start.
+        String transmissionMessage = "Mission Time Elapsed: " + counter;
+        sendTransmission(transmissionMessage);
+        ++counter;
     }
 
-    private void sendTransmission() {
+    private void sendTransmission(String message) {
         try {
-            VehicleStatusTransmission transmission = new VehicleStatusTransmission(rover.getName(), rover.getState().getPosition());
+            VehicleStatusTransmission transmission = new VehicleStatusTransmission(rover.getName(), rover.getState().getPosition(), message);
             sendInteraction(transmission);
         } catch (Exception e) {
             throw new IllegalStateException("Error encountered while trying to transmit vehicle status.", e);

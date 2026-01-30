@@ -9,9 +9,9 @@
         <type>FOM</type>
         <version>1.0</version>
         <securityClassification>unclassified</securityClassification>
-        <purpose></purpose>
+        <purpose>Tutorial FOM</purpose>
         <applicationDomain></applicationDomain>
-        <description>Adds a simple interaction class to showcase how sending interaction classes works in the SEE HLA Starter Kit.</description>
+        <description>Adds a simple interaction class to demonstrate how it can be used in the SEE HLA Starter Kit framework.</description>
         <useLimitation></useLimitation>
         <other></other>
     </modelIdentification>
@@ -33,6 +33,11 @@
                     <name>Position</name>
                     <dataType>PositionVector</dataType>
                     <semantics>Coordinates of the vehicle.</semantics>
+                </parameter>
+                <parameter>
+                    <name>Message</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <semantics>A short message to go along with the transmission.</semantics>
                 </parameter>
             </interactionClass>
         </interactionClass>

@@ -27,7 +27,7 @@ public class ReferenceFrameListener implements RemoteObjectInstanceListener {
         }
     }
 
-    // And this gets called when any remote entity is removed.
+    // This gets called whenever ANY remote entity is removed.
     @Override
     public void instanceRemoved(String instanceName) {
         if (instanceName.equals(REFERENCE_FRAME_NAME)) {
