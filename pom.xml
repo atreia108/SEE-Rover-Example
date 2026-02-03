@@ -6,10 +6,10 @@
 
     <groupId>org.see</groupId>
     <artifactId>roverexample</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2026.0-SNAPSHOT</version>
 
     <name>SEE-Rover-Example</name>
-    <url>https://www.github.com/atreia108/SEE-Rover-Example</url>
+    <url>https://www.github.com/SMASH-Lab/SEE-Rover-Example</url>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

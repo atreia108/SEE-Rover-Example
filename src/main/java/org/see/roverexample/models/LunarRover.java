@@ -1,32 +1,25 @@
-/*-
- * Copyright (c) 2026 Hridyanshu Aatreya
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the copyright holder nor the names of its
- *    contributors may be used to endorse or promote products derived from
- *    this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- *
- */
+/*****************************************************************
+ SEE Tutorial - Tutorial projects demonstrating how to use the
+ SEE HLA Starter Kit Framework.
+ Copyright (c) 2026, Hridyanshu Aatreya - Modelling & Simulation
+ Group (MSG) at Brunel University of London. All rights reserved.
+
+ GNU Lesser General Public License (GNU LGPL).
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3.0 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library.
+ If not, see http://http://www.gnu.org/licenses/
+ *****************************************************************/
 
 package org.see.roverexample.models;
 
@@ -34,8 +27,8 @@ import org.apache.commons.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.numbers.quaternion.Quaternion;
 import org.see.skf.annotations.Attribute;
 import org.see.skf.annotations.ObjectClass;
+import org.see.skf.runtime.ScopeLevel;
 import org.see.skf.util.encoding.HLAunicodeStringCoder;
-import org.see.skf.runtime.AccessLevel;
 import org.see.roverexample.encoding.QuaternionCoder;
 import org.see.roverexample.encoding.SpaceTimeCoordinateStateCoder;
 import org.see.roverexample.encoding.Vector3DCoder;
@@ -49,31 +42,31 @@ public class LunarRover {
 
     private static final Vector3D POSITION_INCREMENT = Vector3D.of(10, 0, 0);
 
-    @Attribute(name = "name", coder = HLAunicodeStringCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "name", coder = HLAunicodeStringCoder.class, scope = ScopeLevel.PUBLISH)
     private String name;
 
-    @Attribute(name = "type", coder = HLAunicodeStringCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "type", coder = HLAunicodeStringCoder.class, scope = ScopeLevel.PUBLISH)
     private String type;
 
-    @Attribute(name = "status", coder = HLAunicodeStringCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "status", coder = HLAunicodeStringCoder.class, scope = ScopeLevel.PUBLISH)
     private String status;
 
-    @Attribute(name = "parent_reference_frame", coder = HLAunicodeStringCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "parent_reference_frame", coder = HLAunicodeStringCoder.class, scope = ScopeLevel.PUBLISH)
     private String parentReferenceFrame;
 
-    @Attribute(name = "state",  coder = SpaceTimeCoordinateStateCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "state",  coder = SpaceTimeCoordinateStateCoder.class, scope = ScopeLevel.PUBLISH)
     private SpaceTimeCoordinateState state;
 
-    @Attribute(name = "acceleration", coder = Vector3DCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "acceleration", coder = Vector3DCoder.class, scope = ScopeLevel.PUBLISH)
     private Vector3D acceleration;
 
-    @Attribute(name = "rotational_acceleration", coder = Vector3DCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "rotational_acceleration", coder = Vector3DCoder.class, scope = ScopeLevel.PUBLISH)
     private Vector3D rotationalAcceleration;
 
-    @Attribute(name = "center_of_mass", coder = Vector3DCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "center_of_mass", coder = Vector3DCoder.class, scope = ScopeLevel.PUBLISH)
     private Vector3D centerOfMass;
 
-    @Attribute(name = "body_wrt_structural", coder = QuaternionCoder.class, access = AccessLevel.PUBLISH)
+    @Attribute(name = "body_wrt_structural", coder = QuaternionCoder.class, scope = ScopeLevel.PUBLISH)
     private Quaternion bodyWrtStructural;
 
     public LunarRover() {
